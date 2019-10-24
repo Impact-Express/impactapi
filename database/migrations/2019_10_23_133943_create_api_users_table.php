@@ -16,6 +16,8 @@ class CreateApiUsersTable extends Migration
         Schema::create('api_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('api_name');
+            $table->string('account_number');
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->timestamps();
         });

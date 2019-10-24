@@ -15,6 +15,7 @@ class CreateManifestsTable extends Migration
     {
         Schema::create('manifests', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('customer_id');
             $table->string('agent_tracking_number')->nullable();
             $table->string('mawb')->nullable();
             $table->string('master_date')->nullable();
