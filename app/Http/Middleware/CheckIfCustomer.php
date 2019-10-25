@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\ApiUser;
+use App\Services\Api\ApiResponse;
 
 class CheckIfCustomer
 {
@@ -20,20 +21,10 @@ class CheckIfCustomer
         $accountNumber = $request['ManifestUpload']['CustomerDetails']['AccountNumber'];
         $apiToken = hash('sha256', str_replace('Bearer ', '', str_replace('Basic ', '', $request->header('Authorization'))));
 
-        if (ApiUser::where([
-            'account_number' => $accountNumber,
-            'api_name' => $customerName,
-            'api_token' => $apiToken
-        ])->exists()) {
-            $user = ApiUser::where([
-                'account_number' => $accountNumber,
-                'api_name' => $customerName,
-                'api_token' => $apiToken
-            ])->first();
-        } else {
-            return redirect(404); // response here with errors
+        if (!ApiUser::where(['account_number' => $accountNumber, 'api_name' => $customerName, 'api_token' => $apiToken])->exists()) {
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::UNAUTHORIZED, 'Unauthorized', $message = 'Check credentials');
         }
-
         return $next($request);
     }
 }

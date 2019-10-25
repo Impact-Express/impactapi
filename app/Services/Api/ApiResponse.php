@@ -92,7 +92,4 @@ class ApiResponse {
             'headers' => $this->headers,
         ];
     }
-
-
-
 }
