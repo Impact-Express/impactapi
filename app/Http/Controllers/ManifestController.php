@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Validator;
+use App\Manifest;
+use App\ApiUser;
+use App\Services\Api\ApiResponse;
+use League\Csv\Writer;
+
 
 class ManifestController extends Controller
 {
@@ -23,7 +30,7 @@ class ManifestController extends Controller
      */
     public function create(Request $request)
     {
-        return $request;
+
     }
 
     /**
@@ -34,7 +41,175 @@ class ManifestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Is the request valid json?
+        if (!$request->json()->all()) {
+            dd('invalid json'); // return error
+        }
+
+        $rules = [
+            'ManifestUpload' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+                dd($errors); // return error
+        }
+
+        $rules = [
+            'ManifestUpload.CustomerDetails' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+                dd($errors); // return error
+        }
+
+        $customerName = $request['ManifestUpload']['CustomerDetails']['CustomerName'];
+        $accountNumber = $request['ManifestUpload']['CustomerDetails']['AccountNumber'];
+        // $apiToken = hash('sha256', str_replace('Bearer ', '', str_replace('Basic ', '', $request->header('Authorization'))));
+
+        $apiToken = str_replace('Bearer ', '', $request->header('Authorization'));
+
+        if (!ApiUser::where(['account_number' => $accountNumber, 'api_name' => $customerName, 'api_token' => $apiToken])->exists()) {
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::UNAUTHORIZED, 'Unauthorized', $message = 'Check Customer Details');
+        }
+        $apiUser = ApiUser::where(['account_number' => $accountNumber, 'api_name' => $customerName, 'api_token' => $apiToken])->first();
+
+        $rules = [
+            'ManifestUpload.ManifestRecords' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+                dd($errors); // return error
+        }
+
+        $rules = [
+            'AgentTrackingNumber' => 'required|string',
+            'MAWB' => 'string',
+            'MasterDate' => 'date_format:Y-m-d',
+            'Flight' => 'string',
+            'HAWB' => 'string',
+            'Client' => 'required|string',
+            'Shipper' => 'required|string',
+            'OriginCountry' => 'required|string',
+            'ShipperAddress' => 'required|string',
+            'ShipperCity' => 'required|string',
+            'ShipperZip' => 'required|string',
+            'Consignee' => 'required|string',
+            'ConsigneeTel' => 'string',
+            'ConsigneeAddress1' => 'required|string',
+            'ConsigneeAddress2' => 'string',
+            'ConsigneeAddress3' => 'string',
+            'Contact' => 'required|string',
+            'ConsigneeCity' => 'required|string',
+            'ConsigneeZip' => 'required|string',
+            'Pieces' => 'required|string',
+            'Contents' => 'required|string',
+            'Value' => 'required|string',
+            'DeadWeight' => 'required|string',
+            'VolWeight' => 'required|string',
+            'Notes' => 'string',
+            'CountryCode' => 'required|string',
+            'JobId' => 'string',
+            'DestinationCountryName' => 'required|string',
+            'ServiceCode' => 'required|string',
+            'Bag' => 'string'
+        ];
+        $manifestRecords = $request['ManifestUpload']['ManifestRecords'];
+        foreach ($manifestRecords as $record) {
+            $validator = Validator::make($record, $rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                dd($errors); // return error
+            }
+        }
+        
+        $data = [];
+        foreach ($manifestRecords as $record) {
+            $r = [];
+            $r['customer_id'] = $apiUser->id;
+            $r['agent_tracking_number'] = $record['AgentTrackingNumber'];
+            $r['mawb'] = $record['MAWB'];
+            $r['master_date'] = $record['MasterDate'];
+            $r['flight'] = $record['Flight'];
+            $r['hawb'] = $record['HAWB'];
+            $r['client'] = $record['Client'];
+            $r['shipper'] = $record['Shipper'];
+            $r['origin_country'] = $record['OriginCountry'];
+            $r['shipper_address'] = $record['ShipperAddress'];
+            $r['shipper_city'] = $record['ShipperCity'];
+            $r['shipper_zip'] = $record['ShipperZip'];
+            $r['consignee'] = $record['Consignee'];
+            $r['consignee_tel'] = $record['ConsigneeTel'];
+            $r['consignee_address_1'] = $record['ConsigneeAddress1'];
+            $r['consignee_address_2'] = $record['ConsigneeAddress2'];
+            $r['consignee_address_3'] = $record['ConsigneeAddress3'];
+            $r['contact'] = $record['Contact'];
+            $r['consignee_city'] = $record['ConsigneeCity'];
+            $r['consignee_zip'] = $record['ConsigneeZip'];
+            $r['pieces'] = $record['Pieces'];
+            $r['contents'] = $record['Contents'];
+            $r['value'] = $record['Value'];
+            $r['consignee_zip'] = $record['ConsigneeZip'];
+            $r['dead_weight'] = $record['DeadWeight'];
+            $r['vol_weight'] = $record['VolWeight'];
+            $r['notes'] = $record['Notes'];
+            $r['country_code'] = $record['CountryCode'];
+            $r['job_id'] = $record['JobId'];
+            $r['destination_country_name'] = $record['DestinationCountryName'];
+            $r['service_code'] = $record['ServiceCode'];
+            $r['bag'] = $record['Bag'];
+            $data[] = $r;
+        }
+        if(!DB::table('manifests')->insert($data)) {
+            dd('DB insert failed');
+            // return error
+        }
+        
+        $header = [
+            'AGENT TRACKING NUMBER',
+            'MAWB',
+            'MASTER DATE',
+            'FLIGHT',
+            'HAWB',
+            'CLIENT',
+            'SHIPPER',
+            'ORIGIN COUNTRY',
+            'SHIPPER ADDRESS',
+            'SHIPPER CITY',
+            'SHIPPER ZIP',
+            'CONSIGNEE',
+            'CNEE TEL',
+            'CNEE ADDRESS',
+            'CNEE ADDRESS 2',
+            'CNEE ADDRESS 3',
+            'CONTACT',
+            'CNEE CITY',
+            'CNEE ZIP',
+            'PIECES',
+            'CONTENTS',
+            'VALUE',
+            'DEAD WEIGHT',
+            'VOL WEIGHT',
+            'NOTES',
+            'COUNTRY CODE',
+            'JOB ID',
+            'DEST COUNTRY NAME',
+            'SERVICE CODE',
+            'BAG'
+        ];
+dd($manifestRecords);
+        $csv = Writer::createFromString('');
+        $csv->insertOne($header);
+        $csv->insertAll($manifestRecords);
+        
+        $outputFile = fopen('man.csv', 'w');
+        fwrite($outputFile,$csv->getContent());
+        fclose($outputFile);
+
+        return $request;
     }
 
     /**

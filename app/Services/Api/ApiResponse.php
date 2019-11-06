@@ -4,7 +4,6 @@ namespace App\Services\Api;
 
 class ApiResponse {
 
-
     const HTTP_OK                       = 200; // OK - Everything went well
     const HTTP_CREATED                  = 201; // CREATED - Everything went well
     const HTTP_ACCEPTED                 = 202; // ACCEPTED - Everything went well
@@ -47,7 +46,6 @@ class ApiResponse {
         $this->message = $message;
         $this->headers = $headers;
         return $this;
-
     }
 
     public function sendSuccess($response, $message = "", $headers = null)

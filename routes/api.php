@@ -13,5 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 Auth::routes();
-Route::middleware('auth:api', 'throttle:30,1', 'customer')->post('/UploadManifest', 'ManifestController@create');
-// Route::middleware('customer')->get('/UploadManifest', 'ManifestController@create');
+Route::middleware('auth:api', 'throttle:30,1', 'customer')->post('/UploadManifest', 'ManifestController@store');
+Route::get('/UploadManifest', function() { abort(404); });
