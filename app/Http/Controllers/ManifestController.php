@@ -125,48 +125,11 @@ class ManifestController extends Controller
                 dd($errors); // return error
             }
         }
+
+        $t = Manifest::createWithLines($apiUser->id, $manifestRecords);
+        // dd('DB insert failed'); return error
+        dd($t);
         
-        $data = [];
-        foreach ($manifestRecords as $record) {
-            $r = [];
-            $r['customer_id'] = $apiUser->id;
-            $r['agent_tracking_number'] = $record['AgentTrackingNumber'];
-            $r['mawb'] = $record['MAWB'];
-            $r['master_date'] = $record['MasterDate'];
-            $r['flight'] = $record['Flight'];
-            $r['hawb'] = $record['HAWB'];
-            $r['client'] = $record['Client'];
-            $r['shipper'] = $record['Shipper'];
-            $r['origin_country'] = $record['OriginCountry'];
-            $r['shipper_address'] = $record['ShipperAddress'];
-            $r['shipper_city'] = $record['ShipperCity'];
-            $r['shipper_zip'] = $record['ShipperZip'];
-            $r['consignee'] = $record['Consignee'];
-            $r['consignee_tel'] = $record['ConsigneeTel'];
-            $r['consignee_address_1'] = $record['ConsigneeAddress1'];
-            $r['consignee_address_2'] = $record['ConsigneeAddress2'];
-            $r['consignee_address_3'] = $record['ConsigneeAddress3'];
-            $r['contact'] = $record['Contact'];
-            $r['consignee_city'] = $record['ConsigneeCity'];
-            $r['consignee_zip'] = $record['ConsigneeZip'];
-            $r['pieces'] = $record['Pieces'];
-            $r['contents'] = $record['Contents'];
-            $r['value'] = $record['Value'];
-            $r['consignee_zip'] = $record['ConsigneeZip'];
-            $r['dead_weight'] = $record['DeadWeight'];
-            $r['vol_weight'] = $record['VolWeight'];
-            $r['notes'] = $record['Notes'];
-            $r['country_code'] = $record['CountryCode'];
-            $r['job_id'] = $record['JobId'];
-            $r['destination_country_name'] = $record['DestinationCountryName'];
-            $r['service_code'] = $record['ServiceCode'];
-            $r['bag'] = $record['Bag'];
-            $data[] = $r;
-        }
-        if(!DB::table('manifests')->insert($data)) {
-            dd('DB insert failed');
-            // return error
-        }
         
         $header = [
             'AGENT TRACKING NUMBER',
