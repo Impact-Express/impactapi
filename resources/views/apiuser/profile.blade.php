@@ -35,7 +35,7 @@
                                 <div class="col">API Token:</div>
                                 <div class="col">*****</div>
                                 <div class="col">
-                                    <button class="k-button k-primary"><i class="fas fa-eye"></i></button>
+                                    <button id="tokenBtn" class="k-button k-primary"><i class="fas fa-eye"></i></button>
                                     <button class="k-button k-primary"><i class="fas fa-edit"></i></button>
                                 </div>
                             </div>
@@ -162,6 +162,13 @@
                 </ul>
             </div>
         </form>
+    </div>
+</div>
+
+<div id="tokenModal" class="modal">
+    <div class="modal-content">
+        <span class="tokenClose close">&times;</span>
+        <span id="apiTokenSpan">{{$ApiUser->api_token}}</span>
     </div>
 </div>
 @endsection

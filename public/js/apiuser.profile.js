@@ -142,6 +142,18 @@ accountnumberSpan.onclick = function () {
   accountnumberModal.style.display = "none";
 };
 
+var tokenModal = document.querySelector("#tokenModal");
+var tokenBtn = document.querySelector("#tokenBtn");
+var tokenSpan = document.querySelector(".tokenClose");
+
+tokenBtn.onclick = function () {
+  tokenModal.style.display = "block";
+};
+
+tokenSpan.onclick = function () {
+  tokenModal.style.display = "none";
+};
+
 /***/ }),
 
 /***/ 2:

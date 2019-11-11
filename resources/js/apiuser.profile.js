@@ -41,3 +41,13 @@ accountnumberBtn.onclick = function() {
 accountnumberSpan.onclick = function() {
     accountnumberModal.style.display = "none";
 };
+
+let tokenModal = document.querySelector("#tokenModal");
+let tokenBtn = document.querySelector("#tokenBtn");
+let tokenSpan = document.querySelector(".tokenClose");
+tokenBtn.onclick = function() {
+    tokenModal.style.display = "block";
+};
+tokenSpan.onclick = function() {
+    tokenModal.style.display = "none";
+};

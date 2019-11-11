@@ -82,3 +82,7 @@ form {
   height: 200px;
 }
 
+#apiTokenSpan {
+  margin: 25px;
+}
+
