@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApiUser;
+use Validator;
 
 class ApiUserController extends Controller
 {
@@ -12,7 +13,24 @@ class ApiUserController extends Controller
     }
 
     public function store(ApiUser $ApiUser, Request $request) {
-        $ApiUser->name = $request->name;
+        
+        $params = $request->only(['name', 'api_name', 'account_number']);
+
+        // validate that shit here
+        $validator = Validator::make($params, [
+            'name' => 'string',
+            'api_name' => 'string',
+            'account_number' => 'string'
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return back()->with('errors');
+        }
+
+        foreach ($params as $field => $val) {
+            $ApiUser->$field = $val;
+        }
+
         $ApiUser->save();
 
         return back();

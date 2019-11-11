@@ -20,14 +20,14 @@
                             <div class="row">
                                 <div class="col">API Username:</div>
                                 <div class="col">{{$ApiUser->api_name}}</div>
-                                <div class="col"><button class="k-button k-primary"><i class="fas fa-edit"></i></button></div>
+                                <div class="col"><button id="userNameModalBtn" class="k-button k-primary"><i class="fas fa-edit"></i></button></div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col">Account Number:</div>
                                 <div class="col">{{$ApiUser->account_number}}</div>
-                                <div class="col"><button class="k-button k-primary"><i class="fas fa-edit"></i></button></div>
+                                <div class="col"><button id="accountnumberModalBtn" class="k-button k-primary"><i class="fas fa-edit"></i></button></div>
                             </div>
                         </li>
                         <li class="list-group-item">
@@ -78,26 +78,92 @@
 </div>
 
 <div id="nameFormModal" class="modal">
-        <div class="modal-content">
-            <span class="nameModalClose close">&times;</span>
-            <form method="POST" action="{{route('apiuser.edit.name', $ApiUser->id)}}">
-                @csrf
-                <div class="k-content">
-                    <ul class="fieldlist">
-                        <li>
-                            <label for="name">Name</label>
-                            <input id="name"  name="name" type="text" class="k-textbox" value="{{$ApiUser->name}}" style="width: 100%;" />
-                        </li>
-                        <li>
-                            <p style="padding-top: 1em; text-align: right">
-                                <button type="submit" class="k-button k-primary">Submit</button>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
+    <div class="modal-content">
+        <span class="nameModalClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.edit.name', $ApiUser->id)}}">
+            @csrf
+            <div class="k-content">
+                <ul class="fieldlist">
+                    <li>
+                        <label for="name">Name</label>
+                        <input id="name"  name="name" type="text" class="k-textbox" value="{{$ApiUser->name}}" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <p style="padding-top: 1em; text-align: right">
+                            <button type="submit" class="k-button k-primary">Submit</button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </form>
     </div>
+</div>
+
+<div id="nameFormModal" class="modal">
+    <div class="modal-content">
+        <span class="nameModalClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.edit.name', $ApiUser->id)}}">
+            @csrf
+            <div class="k-content">
+                <ul class="fieldlist">
+                    <li>
+                        <label for="name">Name</label>
+                        <input id="name"  name="name" type="text" class="k-textbox" value="{{$ApiUser->name}}" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <p style="padding-top: 1em; text-align: right">
+                            <button type="submit" class="k-button k-primary">Submit</button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="userNameFormModal" class="modal">
+    <div class="modal-content">
+        <span class="userNameModalClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.edit.username', $ApiUser->id)}}">
+            @csrf
+            <div class="k-content">
+                <ul class="fieldlist">
+                    <li>
+                        <label for="username">Username</label>
+                        <input id="username"  name="api_name" type="text" class="k-textbox" value="{{$ApiUser->api_name}}" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <p style="padding-top: 1em; text-align: right">
+                            <button type="submit" class="k-button k-primary">Submit</button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="accountnumberFormModal" class="modal">
+    <div class="modal-content">
+        <span class="accountnumberModalClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.edit.accountnumber', $ApiUser->id)}}">
+            @csrf
+            <div class="k-content">
+                <ul class="fieldlist">
+                    <li>
+                        <label for="accountnumber">Account Number</label>
+                        <input id="accountnumber"  name="account_number" type="text" class="k-textbox" value="{{$ApiUser->account_number}}" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <p style="padding-top: 1em; text-align: right">
+                            <button type="submit" class="k-button k-primary">Submit</button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection
 
 @section('styles')

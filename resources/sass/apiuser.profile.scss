@@ -32,10 +32,13 @@
   /* The Close Button */
   .close {
     color: #aaa;
-    float: right;
+    // float: right;
+    position: absolute;
+    right:24px;
     font-size: 28px;
     font-weight: bold;
     text-align: end;
+    width:20px !important;
   }
   
   .close:hover,
@@ -62,4 +65,8 @@
     font-size: 12px;
     color: #444;
   }
-  
+
+  form {
+      margin-top:25px;
+      height:200px;
+  }

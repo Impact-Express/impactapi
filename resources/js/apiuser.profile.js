@@ -21,3 +21,23 @@ nameBtn.onclick = function() {
 nameSpan.onclick = function() {
     nameModal.style.display = "none";
 };
+
+let userNameModal = document.querySelector("#userNameFormModal");
+let userNameBtn = document.querySelector("#userNameModalBtn");
+let userNameSpan = document.querySelector(".userNameModalClose");
+userNameBtn.onclick = function() {
+    userNameModal.style.display = "block";
+};
+userNameSpan.onclick = function() {
+    userNameModal.style.display = "none";
+};
+
+let accountnumberModal = document.querySelector("#accountnumberFormModal");
+let accountnumberBtn = document.querySelector("#accountnumberModalBtn");
+let accountnumberSpan = document.querySelector(".accountnumberModalClose");
+accountnumberBtn.onclick = function() {
+    accountnumberModal.style.display = "block";
+};
+accountnumberSpan.onclick = function() {
+    accountnumberModal.style.display = "none";
+};

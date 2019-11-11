@@ -118,6 +118,30 @@ nameSpan.onclick = function () {
   nameModal.style.display = "none";
 };
 
+var userNameModal = document.querySelector("#userNameFormModal");
+var userNameBtn = document.querySelector("#userNameModalBtn");
+var userNameSpan = document.querySelector(".userNameModalClose");
+
+userNameBtn.onclick = function () {
+  userNameModal.style.display = "block";
+};
+
+userNameSpan.onclick = function () {
+  userNameModal.style.display = "none";
+};
+
+var accountnumberModal = document.querySelector("#accountnumberFormModal");
+var accountnumberBtn = document.querySelector("#accountnumberModalBtn");
+var accountnumberSpan = document.querySelector(".accountnumberModalClose");
+
+accountnumberBtn.onclick = function () {
+  accountnumberModal.style.display = "block";
+};
+
+accountnumberSpan.onclick = function () {
+  accountnumberModal.style.display = "none";
+};
+
 /***/ }),
 
 /***/ 2:
