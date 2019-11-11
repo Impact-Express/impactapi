@@ -11,3 +11,13 @@ $(document).ready(function() {
         resizable: true,
     });
 });
+
+let nameModal = document.querySelector("#nameFormModal");
+let nameBtn = document.querySelector("#nameModalBtn");
+let nameSpan = document.querySelector(".nameModalClose");
+nameBtn.onclick = function() {
+    nameModal.style.display = "block";
+};
+nameSpan.onclick = function() {
+    nameModal.style.display = "none";
+};

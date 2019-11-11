@@ -106,6 +106,17 @@ $(document).ready(function () {
     resizable: true
   });
 });
+var nameModal = document.querySelector("#nameFormModal");
+var nameBtn = document.querySelector("#nameModalBtn");
+var nameSpan = document.querySelector(".nameModalClose");
+
+nameBtn.onclick = function () {
+  nameModal.style.display = "block";
+};
+
+nameSpan.onclick = function () {
+  nameModal.style.display = "none";
+};
 
 /***/ }),
 

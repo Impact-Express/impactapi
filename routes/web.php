@@ -15,4 +15,11 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/apiuser/{ApiUser}', 'ApiUserController@profile')->name('apiuser.profile');
+Route::middleware(['auth'])->group(function() {
+    Route::prefix('apiuser')->group(function() {
+        Route::get('{ApiUser}', 'ApiUserController@profile')->name('apiuser.profile');
+        Route::post('{ApiUser}/edit/name', 'ApiUserController@store')->name('apiuser.edit.name');
+        Route::post('{ApiUser}/edit/username', 'ApiUserController@store')->name('apiuser.edit.username');
+        Route::post('{ApiUser}/edit/accountnumber', 'ApiUserController@store')->name('apiuser.edit.accountnumber');
+    });
+});

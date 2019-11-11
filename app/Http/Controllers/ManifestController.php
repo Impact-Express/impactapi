@@ -128,9 +128,8 @@ class ManifestController extends Controller
 
         $t = Manifest::createWithLines($apiUser->id, $manifestRecords);
         // dd('DB insert failed'); return error
-        dd($t);
-        
-        
+        // dd('m',$t);
+
         $header = [
             'AGENT TRACKING NUMBER',
             'MAWB',
@@ -163,16 +162,18 @@ class ManifestController extends Controller
             'SERVICE CODE',
             'BAG'
         ];
-dd($manifestRecords);
+// dd('here', $manifestRecords);
         $csv = Writer::createFromString('');
         $csv->insertOne($header);
         $csv->insertAll($manifestRecords);
-        
+
         $outputFile = fopen('man.csv', 'w');
         fwrite($outputFile,$csv->getContent());
         fclose($outputFile);
 
-        return $request;
+        // return $request;
+        $response = new ApiResponse;
+        return $response->sendSuccess(ApiResponse::HTTP_OK, '', $message = 'OK');
     }
 
     /**

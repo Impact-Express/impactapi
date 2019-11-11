@@ -16,7 +16,7 @@ class Manifest extends Model
                 array_merge(
                     [
                         'manifest_id' => $manifest->id
-                    ], 
+                    ],
                     [
                         'agent_tracking_number' => $line['AgentTrackingNumber'],
                         'mawb' => $line['MAWB'],
