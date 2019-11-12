@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{$ApiUser->name}} <button id="userDeleteBtn" class="btn-danger btn"><i class="fas fa-trash"></i></button></div>
+                <div class="card-header">{{$ApiUser->name}} <button id="userDeleteBtn" class="btn-danger btn"><i class="far fa-trash-alt"></i></button></div>
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -59,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($ApiUser->manifests as $m)
+                        @forelse ($ApiUser->manifests->sortBy('created_at')->reverse() as $m)
                             <tr>
                                 <td>{{$m->created_at}}</td>
                                 <td><a href="#" class="k-button k-primary"><i class="fas fa-eye"></i></a></td>
