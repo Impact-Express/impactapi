@@ -19,10 +19,10 @@
                                 </div>
                             </li>
                         @empty
-                            <li>No Users</li>
+                            <li class="list-group-item">No Users</li>
                         @endforelse
                         <li class="list-group-item">
-                        <button id="newApiUserBtn" class="k-button k-primary"><i class="fas fa-user-plus"></i></button>
+                            <button id="newApiUserBtn" class="k-button k-primary"><i class="fas fa-user-plus"></i></button>
                         </li>
                     </ul>
                 </div>

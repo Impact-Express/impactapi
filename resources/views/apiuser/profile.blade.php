@@ -204,7 +204,8 @@
                 Are you sure you want to delete user <span class="bold">{{$ApiUser->name}}</span>?
             </p>
             <p style="padding-top: 1em; text-align: right">
-                <button type="submit" class="btn btn-danger">Yes. Delete</button>
+                <button id="deleteModalCancel" class="k-button k-primary">No, Cancel</button>
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
             </p>
         </form>
     </div>

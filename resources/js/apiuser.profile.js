@@ -71,9 +71,14 @@ tokenRefresh.onclick = function(e) {
 let deleteModal = document.querySelector('#deleteModal');
 let userDeleteBtn = document.querySelector('#userDeleteBtn');
 let deleteModalClose = document.querySelector('.deleteModalClose');
+let deleteModalCancel = document.querySelector('#deleteModalCancel');
 userDeleteBtn.onclick = function() {
     deleteModal.style.display = "block";
 }
 deleteModalClose.onclick = function() {
+    deleteModal.style.display = "none";
+}
+deleteModalCancel.onclick = function(e) {
+    e.preventDefault();
     deleteModal.style.display = "none";
 }

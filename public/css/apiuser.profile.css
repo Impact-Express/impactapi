@@ -3,6 +3,8 @@
   display: flex;
   -webkit-box-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: baseline;
+          align-items: baseline;
 }
 
 .bold {
