@@ -86,3 +86,7 @@ form {
   margin: 25px;
 }
 
+#newToken {
+  width: 87% !important;
+}
+

@@ -36,7 +36,7 @@
                                 <div class="col">*****</div>
                                 <div class="col">
                                     <button id="tokenBtn" class="k-button k-primary"><i class="fas fa-eye"></i></button>
-                                    <button class="k-button k-primary"><i class="fas fa-edit"></i></button>
+                                    <button id="newTokenBtn" class="k-button k-primary"><i class="fas fa-edit"></i></button>
                                 </div>
                             </div>
                         </li>
@@ -171,6 +171,30 @@
         <span id="apiTokenSpan">{{$ApiUser->api_token}}</span>
     </div>
 </div>
+
+<div id="newTokenModal" class="modal">
+    <div class="modal-content">
+        <span class="newTokenClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.edit.accountnumber', $ApiUser->id)}}">
+            @csrf
+            <div class="k-content">
+                <ul class="fieldlist">
+                    <li>
+                        <label for="newToken">API Token</label>
+                        <input id="newToken"  name="account_number" type="text" class="k-textbox" value="{{$ApiUser->api_token}}" style="width: 100%;" readonly/>
+                        <button id="tokenRefresh" class="k-button k-primary"><i class="fas fa-redo"></i></button>
+                    </li>
+                    <li>
+                        <p style="padding-top: 1em; text-align: right">
+                            <button type="submit" class="k-button k-primary">Submit</button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endsection
 
 @section('styles')

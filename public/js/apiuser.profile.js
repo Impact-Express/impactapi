@@ -154,6 +154,24 @@ tokenSpan.onclick = function () {
   tokenModal.style.display = "none";
 };
 
+var newTokenModal = document.querySelector("#newTokenModal");
+var newTokenBtn = document.querySelector("#newTokenBtn");
+var newTokenSpan = document.querySelector(".newTokenClose");
+
+newTokenBtn.onclick = function () {
+  newTokenModal.style.display = "block";
+};
+
+newTokenSpan.onclick = function () {
+  newTokenModal.style.display = "none";
+};
+
+var tokenRefresh = document.querySelector('#tokenRefresh');
+
+tokenRefresh.onclick = function (e) {
+  e.preventDefault(); // generate new token
+};
+
 /***/ }),
 
 /***/ 2:

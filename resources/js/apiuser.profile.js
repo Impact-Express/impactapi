@@ -51,3 +51,19 @@ tokenBtn.onclick = function() {
 tokenSpan.onclick = function() {
     tokenModal.style.display = "none";
 };
+
+let newTokenModal = document.querySelector("#newTokenModal");
+let newTokenBtn = document.querySelector("#newTokenBtn");
+let newTokenSpan = document.querySelector(".newTokenClose");
+newTokenBtn.onclick = function() {
+    newTokenModal.style.display = "block";
+};
+newTokenSpan.onclick = function() {
+    newTokenModal.style.display = "none";
+};
+
+let tokenRefresh = document.querySelector('#tokenRefresh');
+tokenRefresh.onclick = function(e) {
+    e.preventDefault();
+    // generate new token
+}
