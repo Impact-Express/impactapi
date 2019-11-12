@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{$ApiUser->name}}</div>
+                <div class="card-header">{{$ApiUser->name}} <button id="userDeleteBtn" class="btn-danger btn"><i class="fas fa-trash"></i></button></div>
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -191,6 +191,21 @@
                     </li>
                 </ul>
             </div>
+        </form>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="deleteModalClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.delete', $ApiUser->id)}}">
+            @csrf
+            <p id="delete-confirmation">
+                Are you sure you want to delete user <span class="bold">{{$ApiUser->name}}</span>?
+            </p>
+            <p style="padding-top: 1em; text-align: right">
+                <button type="submit" class="btn btn-danger">Yes. Delete</button>
+            </p>
         </form>
     </div>
 </div>

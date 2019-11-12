@@ -67,3 +67,13 @@ tokenRefresh.onclick = function(e) {
     e.preventDefault();
     // generate new token
 }
+
+let deleteModal = document.querySelector('#deleteModal');
+let userDeleteBtn = document.querySelector('#userDeleteBtn');
+let deleteModalClose = document.querySelector('.deleteModalClose');
+userDeleteBtn.onclick = function() {
+    deleteModal.style.display = "block";
+}
+deleteModalClose.onclick = function() {
+    deleteModal.style.display = "none";
+}

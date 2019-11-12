@@ -1,3 +1,16 @@
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+#delete-confirmation {
+  margin-top: 50px;
+}
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -32,7 +45,6 @@
   /* The Close Button */
   .close {
     color: #aaa;
-    // float: right;
     position: absolute;
     right:24px;
     font-size: 28px;

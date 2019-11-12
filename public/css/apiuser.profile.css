@@ -1,3 +1,18 @@
+.card-header {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+#delete-confirmation {
+  margin-top: 50px;
+}
+
 /* The Modal (background) */
 
 .modal {

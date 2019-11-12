@@ -34,4 +34,24 @@ class ApiUserController extends Controller
 
         return back();
     }
+
+    public function create(Request $request) {
+
+        // validate here
+
+        $user = new ApiUser();
+        $user->name = $request->name;
+        $user->api_name = $request->api_name;
+        $user->account_number = $request->account_number;
+        $user->save();
+
+        return back()->with('errors');
+    }
+
+    public function delete(ApiUser $ApiUser) {
+        if ($ApiUser) {
+            $ApiUser->delete();
+        }
+        return redirect()->route('home');
+    }
 }

@@ -172,6 +172,18 @@ tokenRefresh.onclick = function (e) {
   e.preventDefault(); // generate new token
 };
 
+var deleteModal = document.querySelector('#deleteModal');
+var userDeleteBtn = document.querySelector('#userDeleteBtn');
+var deleteModalClose = document.querySelector('.deleteModalClose');
+
+userDeleteBtn.onclick = function () {
+  deleteModal.style.display = "block";
+};
+
+deleteModalClose.onclick = function () {
+  deleteModal.style.display = "none";
+};
+
 /***/ }),
 
 /***/ 2:

@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('{ApiUser}/edit/name', 'ApiUserController@store')->name('apiuser.edit.name');
         Route::post('{ApiUser}/edit/username', 'ApiUserController@store')->name('apiuser.edit.username');
         Route::post('{ApiUser}/edit/accountnumber', 'ApiUserController@store')->name('apiuser.edit.accountnumber');
-        Route::post('/', 'ApiUserController@new')->name('apiuser.new');
+        Route::post('/', 'ApiUserController@create')->name('apiuser.new');
+        Route::post('{ApiUser}/delete', 'ApiUserController@delete')->name('apiuser.delete');
     });
 });
