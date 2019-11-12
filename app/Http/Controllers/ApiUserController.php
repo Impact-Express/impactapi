@@ -16,7 +16,6 @@ class ApiUserController extends Controller
         
         $params = $request->only(['name', 'api_name', 'account_number']);
 
-        // validate that shit here
         $validator = Validator::make($params, [
             'name' => 'string',
             'api_name' => 'string',

@@ -22,7 +22,7 @@
                             <li>No Users</li>
                         @endforelse
                         <li class="list-group-item">
-                        <a href="#" class="k-button k-primary"><i class="fas fa-user-plus"></i></a>
+                        <button id="newApiUserBtn" class="k-button k-primary"><i class="fas fa-user-plus"></i></button>
                         </li>
                     </ul>
                 </div>
@@ -30,6 +30,37 @@
         </div>
     </div>
 </div>
+
+<div id="newApiUserModal" class="modal">
+    <div class="modal-content">
+        <span class="newApiUserClose close">&times;</span>
+        <form method="POST" action="{{route('apiuser.new')}}">
+            @csrf
+            <div class="k-content">
+                <ul class="fieldlist">
+                    <li>
+                        <label for="name">Name</label>
+                        <input id="name"  name="name" type="text" class="k-textbox" value="" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <label for="api_name">Username</label>
+                        <input id="api_name"  name="api_name" type="text" class="k-textbox" value="" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <label for="account_number">Account Number</label>
+                        <input id="account_number"  name="account_number" type="text" class="k-textbox" value="" style="width: 100%;" />
+                    </li>
+                    <li>
+                        <p style="padding-top: 1em; text-align: right">
+                            <button type="submit" class="k-button k-primary">Submit</button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endsection
 
 @section('styles')

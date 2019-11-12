@@ -93,7 +93,17 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+var newApiUserModal = document.querySelector("#newApiUserModal");
+var newApiUserBtn = document.querySelector("#newApiUserBtn");
+var newApiUserSpan = document.querySelector(".newApiUserClose");
 
+newApiUserBtn.onclick = function () {
+  newApiUserModal.style.display = "block";
+};
+
+newApiUserSpan.onclick = function () {
+  newApiUserModal.style.display = "none";
+};
 
 /***/ }),
 
