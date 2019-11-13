@@ -8,7 +8,7 @@ use Validator;
 use App\Manifest;
 use App\ApiUser;
 use App\Services\Api\ApiResponse;
-use League\Csv\Writer;
+use App\Services\Csv\Csv;
 
 
 class ManifestController extends Controller
@@ -130,6 +130,26 @@ class ManifestController extends Controller
         // dd('DB insert failed'); return error
         // dd('m',$t);
 
+        // return $request;
+        $response = new ApiResponse;
+        return $response->sendSuccess(ApiResponse::HTTP_OK, '', $message = 'OK');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Manifest $manifest)
+    {
+        // dd($manifest);
+
+        return view('manifest.show');
+    }
+
+    public function download(Manifest $manifest) {
+        
         $header = [
             'AGENT TRACKING NUMBER',
             'MAWB',
@@ -137,7 +157,6 @@ class ManifestController extends Controller
             'FLIGHT',
             'HAWB',
             'CLIENT',
-            'SHIPPER',
             'ORIGIN COUNTRY',
             'SHIPPER ADDRESS',
             'SHIPPER CITY',
@@ -162,29 +181,29 @@ class ManifestController extends Controller
             'SERVICE CODE',
             'BAG'
         ];
-// dd('here', $manifestRecords);
-        $csv = Writer::createFromString('');
-        $csv->insertOne($header);
-        $csv->insertAll($manifestRecords);
 
-        $outputFile = fopen('man.csv', 'w');
+        $csv = new Csv();
+
+        $csv->setHeader($header);
+
+        $records = [];
+        foreach ($manifest->lines->toArray() as $line) {
+            unset($line['id']);
+            unset($line['manifest_id']);
+            unset($line['created_at']);
+            unset($line['updated_at']);
+            $records[] = array_values($line);
+        }
+
+        $csv->setRecords($records);
+
+        $name = $manifest->created_at.' '.$manifest->apiUser->api_name.'.csv';
+
+        $outputFile = fopen($name, 'w');
         fwrite($outputFile,$csv->getContent());
         fclose($outputFile);
 
-        // return $request;
-        $response = new ApiResponse;
-        return $response->sendSuccess(ApiResponse::HTTP_OK, '', $message = 'OK');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return response()->download($name)->deleteFileAfterSend();
     }
 
     /**

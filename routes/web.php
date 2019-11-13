@@ -24,4 +24,8 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/', 'ApiUserController@create')->name('apiuser.new');
         Route::post('{ApiUser}/delete', 'ApiUserController@delete')->name('apiuser.delete');
     });
+    Route::prefix('manifest')->group(function() {
+        Route::get('{manifest}', 'ManifestController@show')->name('manifest.show');
+        Route::get('{manifest}/download', 'ManifestController@download')->name('manifest.download');
+    });
 });
