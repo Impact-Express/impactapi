@@ -15,6 +15,7 @@ class CreateManifestsTable extends Migration
     {
         Schema::create('manifests', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('ref');
             $table->integer('customer_id');
             $table->timestamps();
         });

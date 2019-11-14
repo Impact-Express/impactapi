@@ -7,10 +7,15 @@ use App\ManifestLine;
 
 class Manifest extends Model
 {
-    protected $fillable = ['customer_id'];
+    protected $fillable = ['customer_id', 'ref'];
 
-    public static function createWithLines($customer_id, $lines) {
-        $manifest = self::create(['customer_id' => $customer_id]);
+    public static function createWithLines($customer_id, $ref, $lines) {
+
+        if (self::where('ref', $ref)->exists()) {
+            return ['status' => 'failure', 'message' => 'Duplicate entry'];
+        }
+
+        $manifest = self::create(['customer_id' => $customer_id, 'ref' => $ref]);
         foreach ($lines as $line) {
             ManifestLine::create(
                 array_merge(
@@ -52,6 +57,7 @@ class Manifest extends Model
                 )
             );
         }
+        return ['status' => 'success'];
     }
 
     public function apiUser() {

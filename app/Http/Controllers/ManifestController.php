@@ -64,6 +64,8 @@ class ManifestController extends Controller
                 dd($errors); // return error
         }
 
+
+
         $customerName = $request['ManifestUpload']['CustomerDetails']['CustomerName'];
         $accountNumber = $request['ManifestUpload']['CustomerDetails']['AccountNumber'];
         // $apiToken = hash('sha256', str_replace('Bearer ', '', str_replace('Basic ', '', $request->header('Authorization'))));
@@ -77,7 +79,8 @@ class ManifestController extends Controller
         $apiUser = ApiUser::where(['account_number' => $accountNumber, 'api_name' => $customerName, 'api_token' => $apiToken])->first();
 
         $rules = [
-            'ManifestUpload.ManifestRecords' => 'required'
+            'ManifestUpload.ManifestRecords' => 'required',
+            'ManifestUpload.Reference' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -126,9 +129,12 @@ class ManifestController extends Controller
             }
         }
 
-        $t = Manifest::createWithLines($apiUser->id, $manifestRecords);
-        // dd('DB insert failed'); return error
-        // dd('m',$t);
+        $ref = $request['ManifestUpload']['Reference'];
+
+        $t = Manifest::createWithLines($apiUser->id, $ref, $manifestRecords);
+        if ($t['status'] == 'failure') {
+            dd($t);
+        }
 
         // return $request;
         $response = new ApiResponse;
@@ -149,7 +155,7 @@ class ManifestController extends Controller
     }
 
     public function download(Manifest $manifest) {
-        
+
         $header = [
             'AGENT TRACKING NUMBER',
             'MAWB',
