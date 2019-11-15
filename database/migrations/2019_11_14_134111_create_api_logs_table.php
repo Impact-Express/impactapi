@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManifestsTable extends Migration
+class CreateApiLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateManifestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('manifests', function (Blueprint $table) {
+        Schema::create('api_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ref')->unique();
-            $table->integer('customer_id');
+            $table->integer('api_user_id');
+            $table->string('event');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateManifestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manifests');
+        Schema::dropIfExists('api_logs');
     }
 }

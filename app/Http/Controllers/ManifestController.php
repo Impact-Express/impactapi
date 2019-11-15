@@ -64,8 +64,6 @@ class ManifestController extends Controller
                 dd($errors); // return error
         }
 
-
-
         $customerName = $request['ManifestUpload']['CustomerDetails']['CustomerName'];
         $accountNumber = $request['ManifestUpload']['CustomerDetails']['AccountNumber'];
         // $apiToken = hash('sha256', str_replace('Bearer ', '', str_replace('Basic ', '', $request->header('Authorization'))));
@@ -80,7 +78,7 @@ class ManifestController extends Controller
 
         $rules = [
             'ManifestUpload.ManifestRecords' => 'required',
-            'ManifestUpload.Reference' => 'required'
+            'ManifestUpload.Reference' => 'required|string|unique:manifests,ref'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -189,9 +187,7 @@ class ManifestController extends Controller
         ];
 
         $csv = new Csv();
-
         $csv->setHeader($header);
-
         $records = [];
         foreach ($manifest->lines->toArray() as $line) {
             unset($line['id']);
