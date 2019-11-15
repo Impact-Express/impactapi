@@ -9,6 +9,8 @@ use App\Manifest;
 use App\ApiUser;
 use App\Services\Api\ApiResponse;
 use App\Services\Csv\Csv;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ManifestUploaded;
 
 
 class ManifestController extends Controller
@@ -133,6 +135,8 @@ class ManifestController extends Controller
         if ($t['status'] == 'failure') {
             dd($t);
         }
+
+        Mail::to('richard@example.com')->send(new ManifestUploaded($apiUser->name));
 
         // return $request;
         $response = new ApiResponse;
