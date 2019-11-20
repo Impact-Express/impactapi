@@ -57,7 +57,7 @@ class Manifest extends Model
                 )
             );
         }
-        return ['status' => 'success'];
+        return $manifest;
     }
 
     public function apiUser() {

@@ -16,60 +16,48 @@ use App\Mail\ManifestUploaded;
 class ManifestController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         // Is the request valid json?
         if (!$request->json()->all()) {
-            dd('invalid json'); // return error
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::HTTP_BAD_REQUEST, 'Bad request', $message = 'Check your JSON ;)');
         }
 
+
+        // ManifestUpload 
         $rules = [
             'ManifestUpload' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
-                dd($errors); // return error
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::HTTP_BAD_REQUEST, 'Bad request', $message = $errors->all());
         }
 
+        // CustomerDetails
         $rules = [
-            'ManifestUpload.CustomerDetails' => 'required'
+            'ManifestUpload.CustomerDetails' => 'required',
+            'ManifestUpload.CustomerDetails.CustomerName' => 'required',
+            'ManifestUpload.CustomerDetails.AccountNumber' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
-                dd($errors); // return error
+            
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::HTTP_BAD_REQUEST, 'Bad request', $message = $errors->all());
         }
 
+
+        // Further customer authentication
         $customerName = $request['ManifestUpload']['CustomerDetails']['CustomerName'];
         $accountNumber = $request['ManifestUpload']['CustomerDetails']['AccountNumber'];
-        // $apiToken = hash('sha256', str_replace('Bearer ', '', str_replace('Basic ', '', $request->header('Authorization'))));
-
         $apiToken = str_replace('Bearer ', '', $request->header('Authorization'));
 
         if (!ApiUser::where(['account_number' => $accountNumber, 'api_name' => $customerName, 'api_token' => $apiToken])->exists()) {
@@ -78,6 +66,8 @@ class ManifestController extends Controller
         }
         $apiUser = ApiUser::where(['account_number' => $accountNumber, 'api_name' => $customerName, 'api_token' => $apiToken])->first();
 
+
+        // ManifestRecords and Unique reference
         $rules = [
             'ManifestUpload.ManifestRecords' => 'required',
             'ManifestUpload.Reference' => 'required|string|unique:manifests,ref'
@@ -85,7 +75,8 @@ class ManifestController extends Controller
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
-                dd($errors); // return error
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::HTTP_BAD_REQUEST, 'Bad request', $message = $errors->all());
         }
 
         $rules = [
@@ -125,20 +116,21 @@ class ManifestController extends Controller
             $validator = Validator::make($record, $rules);
             if ($validator->fails()) {
                 $errors = $validator->errors();
-                dd($errors); // return error
+                $response = new ApiResponse;
+                return $response->sendError(ApiResponse::HTTP_BAD_REQUEST, 'Bad request', $message = $errors->all());
             }
         }
 
         $ref = $request['ManifestUpload']['Reference'];
 
-        $t = Manifest::createWithLines($apiUser->id, $ref, $manifestRecords);
-        if ($t['status'] == 'failure') {
-            dd($t);
+        $manifest = Manifest::createWithLines($apiUser->id, $ref, $manifestRecords);
+        if ($manifest['status'] == 'failure') {
+            dd($manifest);
         }
 
-        Mail::to('richard@example.com')->send(new ManifestUploaded($apiUser->name));
+        // Send the notification email to office
+        Mail::to('office@impactexpress.co.uk')->send(new ManifestUploaded($apiUser->name, $manifest));
 
-        // return $request;
         $response = new ApiResponse;
         return $response->sendSuccess(ApiResponse::HTTP_OK, '', $message = 'OK');
     }
@@ -149,10 +141,7 @@ class ManifestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Manifest $manifest)
-    {
-        // dd($manifest);
-
+    public function show(Manifest $manifest) {
         return view('manifest.show');
     }
 
@@ -210,39 +199,5 @@ class ManifestController extends Controller
         fclose($outputFile);
 
         return response()->download($name)->deleteFileAfterSend();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
