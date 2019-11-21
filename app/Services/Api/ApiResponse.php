@@ -86,8 +86,8 @@ class ApiResponse {
             'success'     => $this->success,
             'status_code' => $this->status_code,
             'message'     => $this->message,
-            'response'    => $this->response,
-            'headers' => $this->headers,
+            // 'response'    => $this->response,
+            // 'headers' => $this->headers,
         ];
     }
 }

@@ -126,13 +126,15 @@ class ManifestController extends Controller
         $manifest = Manifest::createWithLines($apiUser->id, $ref, $manifestRecords);
         if ($manifest['status'] == 'failure') {
             dd($manifest);
+            $response = new ApiResponse;
+            return $response->sendError(ApiResponse::HTTP_BAD_REQUEST, 'Bad request', $message = $errors->all());
         }
 
         // Send the notification email to office
         Mail::to('office@impactexpress.co.uk')->send(new ManifestUploaded($apiUser->name, $manifest));
 
         $response = new ApiResponse;
-        return $response->sendSuccess(ApiResponse::HTTP_OK, '', $message = 'OK');
+        return $response->sendSuccess('OK', $message = 'OK - Everything went well');
     }
 
     /**
