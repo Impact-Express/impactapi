@@ -62,11 +62,6 @@ newTokenSpan.onclick = function() {
     newTokenModal.style.display = "none";
 };
 
-let tokenRefresh = document.querySelector('#tokenRefresh');
-tokenRefresh.onclick = function(e) {
-    e.preventDefault();
-    // generate new token
-}
 
 let deleteModal = document.querySelector('#deleteModal');
 let userDeleteBtn = document.querySelector('#userDeleteBtn');
@@ -81,4 +76,14 @@ deleteModalClose.onclick = function() {
 deleteModalCancel.onclick = function(e) {
     e.preventDefault();
     deleteModal.style.display = "none";
+}
+
+let tokenRefresh = document.querySelector('#tokenRefresh');
+let tokenField = document.querySelector('#newToken');
+
+tokenRefresh.onclick = async function(e) {
+    e.preventDefault();
+    const response = await fetch('/generateApiToken');
+    const theJson = await response.json();
+    tokenField.value = theJson.token;
 }

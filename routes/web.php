@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('{ApiUser}/edit/name', 'ApiUserController@store')->name('apiuser.edit.name');
         Route::post('{ApiUser}/edit/username', 'ApiUserController@store')->name('apiuser.edit.username');
         Route::post('{ApiUser}/edit/accountnumber', 'ApiUserController@store')->name('apiuser.edit.accountnumber');
+        Route::post('{ApiUser}/edit/apitoken', 'ApiUserController@store')->name('apiuser.edit.apitoken');
         Route::post('/', 'ApiUserController@create')->name('apiuser.new');
         Route::post('{ApiUser}/delete', 'ApiUserController@delete')->name('apiuser.delete');
     });
@@ -28,4 +29,5 @@ Route::middleware(['auth'])->group(function() {
         Route::get('{manifest}', 'ManifestController@show')->name('manifest.show');
         Route::get('{manifest}/download', 'ManifestController@download')->name('manifest.download');
     });
+    Route::get('generateApiToken','ApiTokenController@generate');
 });

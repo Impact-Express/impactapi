@@ -178,7 +178,7 @@
 <div id="newTokenModal" class="modal">
     <div class="modal-content">
         <span class="newTokenClose close">&times;</span>
-        <form method="POST" action="{{route('apiuser.edit.accountnumber', $ApiUser->id)}}">
+        <form method="POST" action="#">
             @csrf
             <div class="k-content">
                 <ul class="fieldlist">
