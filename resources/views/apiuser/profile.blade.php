@@ -178,13 +178,13 @@
 <div id="newTokenModal" class="modal">
     <div class="modal-content">
         <span class="newTokenClose close">&times;</span>
-        <form method="POST" action="#">
+        <form method="POST" action="{{route('apiuser.edit.apitoken', $ApiUser->id)}}">
             @csrf
             <div class="k-content">
                 <ul class="fieldlist">
                     <li>
                         <label for="newToken">API Token</label>
-                        <input id="newToken"  name="account_number" type="text" class="k-textbox" value="{{$ApiUser->api_token}}" style="width: 100%;" readonly/>
+                        <input id="newToken"  name="api_token" type="text" class="k-textbox" value="{{$ApiUser->api_token}}" style="width: 100%;" readonly/>
                         <button id="tokenRefresh" class="k-button k-primary"><i class="fas fa-redo"></i></button>
                     </li>
                     <li>

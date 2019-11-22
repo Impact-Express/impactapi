@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ApiUser;
 use Validator;
+use Illuminate\Support\Facades\Hash;
 
 class ApiUserController extends Controller
 {
@@ -14,12 +15,13 @@ class ApiUserController extends Controller
 
     public function store(ApiUser $ApiUser, Request $request) {
         
-        $params = $request->only(['name', 'api_name', 'account_number']);
+        $params = $request->only(['name', 'api_name', 'account_number', 'api_token']);
 
         $validator = Validator::make($params, [
             'name' => 'string',
             'api_name' => 'string',
-            'account_number' => 'string'
+            'account_number' => 'string',
+            'api_token' => 'string'
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -43,6 +45,7 @@ class ApiUserController extends Controller
         $user->name = $request->name;
         $user->api_name = $request->api_name;
         $user->account_number = $request->account_number;
+        $user->api_token = Hash::make(now());
         $user->save();
 
         return back()->with('errors');
