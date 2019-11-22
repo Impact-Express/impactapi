@@ -70,6 +70,7 @@
                         @empty
                             <tr>
                                 <td>No manifests uploaded yet</td>
+                                <td></td>
                             </tr>
                         @endforelse
                     </tbody>
