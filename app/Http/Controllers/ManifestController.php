@@ -70,7 +70,7 @@ class ManifestController extends Controller
         // ManifestRecords and Unique reference
         $rules = [
             'ManifestUpload.ManifestRecords' => 'required',
-            'ManifestUpload.Reference' => 'required|string|unique:manifests,ref'
+            'ManifestUpload.Reference' => 'required|between:20,100|string|unique:manifests,ref'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
