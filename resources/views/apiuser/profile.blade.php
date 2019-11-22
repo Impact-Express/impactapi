@@ -63,7 +63,7 @@
                             <tr>
                                 <td>{{$m->created_at}}</td>
                                 <td>
-                                    <a href="{{route('manifest.show', $m->id)}}" class="k-button k-primary"><i class="fas fa-eye"></i></a>
+                                    <!-- <a href="{{route('manifest.show', $m->id)}}" class="k-button k-primary"><i class="fas fa-eye"></i></a> -->
                                     <a href="{{route('manifest.download', $m->id)}}" class="k-button k-primary"><i class="fas fa-file-download"></i></a>
                                 </td>
                             </tr>
