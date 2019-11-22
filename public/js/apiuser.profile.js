@@ -913,18 +913,6 @@ tokenSpan.onclick = function () {
   tokenModal.style.display = "none";
 };
 
-var newTokenModal = document.querySelector("#newTokenModal");
-var newTokenBtn = document.querySelector("#newTokenBtn");
-var newTokenSpan = document.querySelector(".newTokenClose");
-
-newTokenBtn.onclick = function () {
-  newTokenModal.style.display = "block";
-};
-
-newTokenSpan.onclick = function () {
-  newTokenModal.style.display = "none";
-};
-
 var deleteModal = document.querySelector('#deleteModal');
 var userDeleteBtn = document.querySelector('#userDeleteBtn');
 var deleteModalClose = document.querySelector('.deleteModalClose');
@@ -945,6 +933,7 @@ deleteModalCancel.onclick = function (e) {
 
 var tokenRefresh = document.querySelector('#tokenRefresh');
 var tokenField = document.querySelector('#newToken');
+var currentToken = tokenField.value;
 
 tokenRefresh.onclick =
 /*#__PURE__*/
@@ -982,6 +971,19 @@ function () {
     return _ref.apply(this, arguments);
   };
 }();
+
+var newTokenModal = document.querySelector("#newTokenModal");
+var newTokenBtn = document.querySelector("#newTokenBtn");
+var newTokenSpan = document.querySelector(".newTokenClose");
+
+newTokenBtn.onclick = function () {
+  newTokenModal.style.display = "block";
+};
+
+newTokenSpan.onclick = function () {
+  newTokenModal.style.display = "none";
+  tokenField.value = currentToken;
+};
 
 /***/ }),
 
