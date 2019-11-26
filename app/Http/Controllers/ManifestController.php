@@ -176,6 +176,7 @@ class ManifestController extends Controller
         $csv->setHeader($header);
         $records = [];
         foreach ($manifest->lines->toArray() as $line) {
+            dd($line);
             unset($line['id']);
             unset($line['manifest_id']);
             unset($line['created_at']);
