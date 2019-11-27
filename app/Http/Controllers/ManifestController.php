@@ -82,10 +82,11 @@ class ManifestController extends Controller
         $rules = [
             'ParcelReference' => 'string',
             'Shipper' => 'required|string',
-            'ShipperAddress' => 'required|string',
+            'ShipperAddress1' => 'required|string',
+            'ShipperAddress2' => 'string',
+            'ShipperAddress3' => 'string',
             'ShipperCity' => 'required|string',
             'ShipperZip' => 'required|string',
-            'ShipperCountryName' => 'required|string',
             'ShipperCountryISOCode' => 'required|string',
             'TrueShipperContactName' => 'required|string',
             'TrueShipperContactTel' => 'required|string',
@@ -95,7 +96,6 @@ class ManifestController extends Controller
             'ConsigneeAddress3' => 'string',
             'ConsigneeCity' => 'required|string',
             'ConsigneeZip' => 'required|string',
-            'ConsigneeCountryName' => 'required|string',
             'ConsigneeCountryISOCode' => 'required|string',
             'ConsigneeContactName' => 'required|string',
             'ConsigneeContactTel' => 'required|string',
@@ -104,7 +104,7 @@ class ManifestController extends Controller
             'Pieces' => 'required|string',
             'DeadWeight' => 'required|string',
             'VolWeight' => 'required|string',
-            'ServiceCode' => 'required|string',
+            'ServiceCode' => 'required|string|in:EXP,ECO,exp,eco',
         ];
         $manifestRecords = $request['ManifestUpload']['ManifestRecords'];
         foreach ($manifestRecords as $record) {
@@ -147,10 +147,11 @@ class ManifestController extends Controller
         $header = [
             'PARCEL REFERENCE',
             'SHIPPER',
-            'SHIPPER ADDRESS',
+            'SHIPPER ADDRESS 1',
+            'SHIPPER ADDRESS 2',
+            'SHIPPER ADDRESS 3',
             'SHIPPER CITY',
             'SHIPPER ZIP',
-            'SHIPPER COUNTRY NAME',
             'SHIPPER COUNTRY ISO CODE',
             'TRUE SHIPPER CONTACT NAME',
             'TRUE SHIPPER CONTACT TEL',
@@ -160,7 +161,6 @@ class ManifestController extends Controller
             'CONSIGNEE ADDRESS 3',
             'CONSIGNEE CITY',
             'CONSIGNEE ZIP',
-            'CONSIGNEE COUNTRY NAME',
             'CONSIGNEE COUNTRY ISO CODE',
             'CONSIGNEE CONTACT NAME',
             'CONSIGNEE CONTACT TEL',
@@ -176,7 +176,6 @@ class ManifestController extends Controller
         $csv->setHeader($header);
         $records = [];
         foreach ($manifest->lines->toArray() as $line) {
-            dd($line);
             unset($line['id']);
             unset($line['manifest_id']);
             unset($line['created_at']);

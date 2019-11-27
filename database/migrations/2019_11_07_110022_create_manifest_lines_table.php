@@ -18,10 +18,11 @@ class CreateManifestLinesTable extends Migration
             $table->integer('manifest_id');
             $table->string('parcel_reference');
             $table->string('shipper');
-            $table->string('shipper_address');
+            $table->string('shipper_address_1');
+            $table->string('shipper_address_2');
+            $table->string('shipper_address_3');
             $table->string('shipper_city');
             $table->string('shipper_zip');
-            $table->string('shipper_country_name');
             $table->string('shipper_country_iso_code');
             $table->string('true_shipper_contact_name');
             $table->string('true_shipper_contact_tel');
@@ -31,7 +32,6 @@ class CreateManifestLinesTable extends Migration
             $table->string('consignee_address_3');
             $table->string('consignee_city');
             $table->string('consignee_zip');
-            $table->string('consignee_country_name');
             $table->string('consignee_country_iso_code');
             $table->string('consignee_contact_name');
             $table->string('consignee_contact_tel');
