@@ -5,8 +5,8 @@
  */
 
 require('./bootstrap');
-require('../../public/js/kendo/kendo.all.min');
-$('.wrapper').kendoRippleContainer();
+// require('../../public/js/kendo/kendo.all.min');
+// $('.wrapper').kendoRippleContainer();
 
 // window.Vue = require('vue');
 
