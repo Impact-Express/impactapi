@@ -126,7 +126,7 @@ class ManifestController extends Controller
         }
 
         // Send the notification email to office
-        Mail::to('office@impactexpress.co.uk')->send(new ManifestUploaded($apiUser->name, $manifest));
+        Mail::to(config('api.email.to'))->send(new ManifestUploaded($apiUser->name, $manifest));
 
         $response = new ApiResponse;
         return $response->sendSuccess('OK', $message = 'OK - Everything went well');

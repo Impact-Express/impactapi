@@ -76,7 +76,7 @@ class ManifestUploaded extends Mailable
 
         $name = $this->manifest->created_at.' '.$this->manifest->apiUser->api_name.'.csv';
 
-        return $this->from('api@impactexpress.co.uk')->subject($this->name.' just uploaded a manifest!')->view('emails.manifest-uploaded')
+        return $this->from(config('api.email.from'))->subject($this->name.' just uploaded a manifest!')->view('emails.manifest-uploaded')
             ->attachData($csv->getContent(), $name, [
                 'mime' => 'application/csv'
             ]
