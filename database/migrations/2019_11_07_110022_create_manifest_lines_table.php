@@ -16,6 +16,7 @@ class CreateManifestLinesTable extends Migration
         Schema::create('manifest_lines', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('manifest_id');
+            $table->string('shipper_vat_eori');
             $table->string('parcel_reference');
             $table->string('shipper');
             $table->string('shipper_address_1');
