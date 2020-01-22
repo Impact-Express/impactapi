@@ -146,6 +146,7 @@ class ManifestController extends Controller
     public function download(Manifest $manifest) {
 
         $header = [
+            'SHIPPER VAT EORI',
             'PARCEL REFERENCE',
             'SHIPPER',
             'SHIPPER ADDRESS 1',

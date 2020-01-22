@@ -9,6 +9,7 @@ class ManifestLine extends Model
     protected $fillable = [
         'manifest_id',
         'parcel_reference',
+        'shipper_vat_eori',
         'shipper',
         'shipper_address_1',
         'shipper_address_2',
