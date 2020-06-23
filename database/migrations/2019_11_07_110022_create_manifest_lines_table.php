@@ -17,7 +17,7 @@ class CreateManifestLinesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('manifest_id');
             $table->string('shipper_vat_eori');
-            $table->string('parcel_reference');
+            $table->string('shipment_reference');
             $table->string('shipper');
             $table->string('shipper_address_1');
             $table->string('shipper_address_2');

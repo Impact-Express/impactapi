@@ -35,7 +35,7 @@ class ManifestUploaded extends Mailable
     {
         $header = [
             'SHIPPER VAT EORI',
-            'PARCEL REFERENCE',
+            'SHIPMENT REFERENCE',
             'SHIPPER',
             'SHIPPER ADDRESS 1',
             'SHIPPER ADDRESS 2',

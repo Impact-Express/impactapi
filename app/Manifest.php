@@ -25,7 +25,7 @@ class Manifest extends Model
                         'manifest_id' => $manifest->id
                     ],
                     [
-                        'parcel_reference' => isset($line['ParcelReference']) ? $line['ParcelReference'] : $defaultEntry,
+                        'shipment_reference' => isset($line['ShipmentReference']) ? $line['ShipmentReference'] : $defaultEntry,
                         'shipper_vat_eori' => isset($line['ShipperVATEORI']) ? $line['ShipperVATEORI'] : $defaultEntry,
                         'shipper' => $line['Shipper'],
                         'shipper_address_1' => $line['ShipperAddress1'],

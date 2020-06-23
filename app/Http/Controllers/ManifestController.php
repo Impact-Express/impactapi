@@ -80,7 +80,7 @@ class ManifestController extends Controller
         }
 
         $rules = [
-            'ParcelReference' => 'string',
+            'ShipmentReference' => 'string',
             'ShipperVATEORI' => 'string',
             'Shipper' => 'required|string',
             'ShipperAddress1' => 'required|string',
@@ -147,7 +147,7 @@ class ManifestController extends Controller
 
         $header = [
             'SHIPPER VAT EORI',
-            'PARCEL REFERENCE',
+            'SHIPMENT REFERENCE',
             'SHIPPER',
             'SHIPPER ADDRESS 1',
             'SHIPPER ADDRESS 2',
